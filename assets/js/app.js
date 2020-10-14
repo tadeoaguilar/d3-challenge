@@ -53,7 +53,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
       
     //.attr("cx", d => x(d.age) )
     //.attr("cy", d => y(d.smokes))
-    .attr("r", 10)
+    .attr("r", 15)
     .style("fill", "#69b3a2")
       
     
@@ -75,22 +75,22 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
       .text("Age");
 
 
-      var circlesGroup = svg.selectAll("circle")
-      circlesGroup.on("mouseover", function() {
-        
+      console.log("a")
+      circle.on("mouseover", function() {
+        console.log("s")
         d3.select(this)
           .transition()
           .duration(1000)
           .attr("r", 5)
-          .attr("fill", "lightblue");
+          .style("fill", "lightblue");
       })
         .on("mouseout", function() {
           d3.select(this)
           
             .transition()
             .duration(1000)
-            .attr("r", 10)
-            .attr("fill", "red");
+            .attr("r", 15)
+            .style("fill", "red");
 
             
         });
@@ -105,8 +105,8 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
       elem.append("text")
           .transition()
           .duration(1000)
-      .attr("dx", d => x(d.age) -10 )
-      .attr("dy", d => y(d.smokes) +5)
+      .attr("dx", d => x(d.age) -8 )
+      .attr("dy", d => y(d.smokes) +3)
       .text(d => d.abbr)
       .style("fill", "blue")
 
