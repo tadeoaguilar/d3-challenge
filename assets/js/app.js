@@ -44,22 +44,40 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .call(d3.axisLeft(y));
 
   // Add dots
-  svg.append('g')
+  var elem = svg.append('g')
     .selectAll("dot")
     .data(stateData)
     .enter()
-    .append("circle")
+    
+   var circle = elem.append("circle")
       
     //.attr("cx", d => x(d.age) )
-    //  .attr("cy", d => y(d.smokes))
+    //.attr("cy", d => y(d.smokes))
+    .attr("r", 10)
+    .style("fill", "#69b3a2")
+      
     
-      .attr("r", 5)
+     
+        
+      svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Smokes");   
 
-      .style("fill", "#69b3a2")
-  
+      svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                            (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Age");
+
+
       var circlesGroup = svg.selectAll("circle")
       circlesGroup.on("mouseover", function() {
-        toolTip.show(d, this)
+        
         d3.select(this)
           .transition()
           .duration(1000)
@@ -74,31 +92,23 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
             .attr("r", 10)
             .attr("fill", "red");
 
-            toolTip.hide(d);
+            
         });
   
       svg.selectAll("circle")
         .transition()
         .duration(1000)
         .attr("cx", d => x(d.age) )
-        .attr("cy", d => y(d.smokes));
-    
-     
-        
-        svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x",0 - (height / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("Smokes");   
-    
-        svg.append("text")             
-        .attr("transform",
-              "translate(" + (width/2) + " ," + 
-                             (height + margin.top + 20) + ")")
-        .style("text-anchor", "middle")
-        .text("Age");
+        .attr("cy", d => y(d.smokes))
+        ;
+
+      elem.append("text")
+          .transition()
+          .duration(1000)
+      .attr("dx", d => x(d.age) -10 )
+      .attr("dy", d => y(d.smokes) +5)
+      .text(d => d.abbr)
+      .style("fill", "blue")
 
 });
 
